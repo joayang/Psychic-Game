@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript First Assignment</title>
+    <!-- Bootstrap and reset css files -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<style>
+    h1 {
+        color: red;
+        font-size: 44px;
+    }
+</style>
+
+<body>
+    <h1>Letter guessing game</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-9">
+                <div class="jumbotron">
+                    <!-- <h2>You just typed<span id="user-text"><strong>...Nothing.</strong></span></h2> -->
+                    <div id="game">
+                        <h2>Your guess
+                            <span id="yourGuess"></span>
+                        </h2>
+                        <h2>Computer Choice
+                            <span id="computerChoice"></span>
+                        </h2>
+                        <h2>wins
+                            <span id="wins"></span>
+                        </h2>
+                        <h2>Losses
+                            <span id="Losses"></span>
+                        </h2>
+                        <h2>Guesses
+                            <span id="guesses"></span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Java script start here-->
+    <script>
+        function reset() {
+            computerGuess = letterChoices[Math.floor(Math.random() * letterChoices.length)];   //Whole line has to be included
+            guessesRemaining = 8;
+        }
+        // create a letter guessing game where the user guess the letter
+        // create an arrays to hold a letter 
+        var wins = 0;
+        var losses = 0;
+        var guesses = 8;
+        var letterChoice = ["H", "O", "M", "E", "W", "O", "R", "K"];
+        //whenever a key is pressed by user, the following function is called
+        document.onkeyup = function (event) {
+            var yourGuess = event.key.toUpperCase();
+            // random word
+            var computerChoice = letterChoice[Math.floor(Math.random() * letterChoice.length)];
+            console.log("your guess: " + yourGuess + "  Computer Guess: " + computerChoice);
+            if (yourGuess === computerChoice) {
+                wins++;
+                var replay = confirm("You win! Play again?");
+                if (replay) {
+                    guesses = 8;
+                } else {
+                    alert("Thank you for playing");
+                }
+
+            } else {
+                guesses--;
+                console.log("the guesses value: " + guesses);
+            }
+            if (guesses === 0) {
+                losses++;
+                var answer = confirm("Game over, click OK play again");
+                if (answer) {
+                    guesses = 8;
+                } else {
+                    alert("Thank you for playing");
+                }
+
+            }
+            // document.getElementById('wins').innerHTML ="Wins: " + wins;
+            // document.getElementById('losses').innerHTML ="losses: " + losses;
+            // document.getElementById('guesses').innerHTML = "Guesses left: " + Guesses;
+
+            document.getElementById('yourGuess').textContent = yourGuess;
+            document.getElementById('computerChoice').textContent = computerChoice;
+            document.getElementById('wins').textContent = wins;
+            document.getElementById('Losses').textContent = losses;
+            document.getElementById('guesses').textContent = guesses;
+        }
+    </script>
+</body>
+
+</html>
